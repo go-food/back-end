@@ -1,0 +1,153 @@
+CREATE TABLE public.city
+(
+    id integer NOT NULL,
+    name character varying(20) NOT NULL,
+    CONSTRAINT city_pkey PRIMARY KEY (id)
+);
+
+
+CREATE SEQUENCE user_id_seq;
+CREATE TABLE account (
+    user_id int NOT NULL DEFAULT nextval('user_id_seq'),
+    user_name character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    pass character varying(30) NOT NULL,
+    phone character varying(15) NOT NULL,
+    address character varying(255) NOT NULL,
+    city_id int NOT NULL DEFAULT 0,
+    balance numeric(12, 3) default 0,
+    PRIMARY KEY (user_id),
+    CONSTRAINT fk_city FOREIGN KEY (city_id)
+        REFERENCES public.city (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE SET DEFAULT
+        NOT VALID
+
+)
+TABLESPACE pg_default;
+ALTER SEQUENCE user_id_seq OWNED BY account.user_id;
+
+CREATE TABLE public.restaurant
+(
+    id integer NOT NULL,
+    address character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    city_id integer NOT NULL Default 0,
+    open_time time with time zone NOT NULL,
+    close_time time with time zone NOT NULL,
+    status boolean NOT NULL DEFAULT true,
+    CONSTRAINT restaurant_pkey PRIMARY KEY (id, city_id),
+    CONSTRAINT unq_id UNIQUE (id),
+    CONSTRAINT fk_city_restaurant FOREIGN KEY (city_id)
+        REFERENCES public.city (id) MATCH SIMPLE
+        ON UPDATE CASCADE,
+    CONSTRAINT fk_id_restaurant FOREIGN KEY (id)
+        REFERENCES public.account (user_id) MATCH SIMPLE
+        ON DELETE CASCADE
+);
+
+CREATE SEQUENCE category_id_seq;
+CREATE TABLE public.product_category
+(
+    id int NOT NULL DEFAULT nextval('category_id_seq'),
+    name character varying(100) NOT NULL,
+    PRIMARY KEY (id)
+);
+ALTER SEQUENCE category_id_seq OWNED BY product_category.id;
+
+
+CREATE SEQUENCE product_id_seq;
+CREATE TABLE public.product
+(
+    id int NOT NULL DEFAULT nextval('product_id_seq'),
+    restaurant_id int NOT NULL,
+    name character varying(100) NOT NULL,
+    category_id int,
+    description text,
+    price numeric(12,3) DEFAULT 0,
+    has_sold int DEFAULT 0,
+    active boolean DEFAULT true,
+    PRIMARY KEY (id, category_id),
+    CONSTRAINT fk_restaurant FOREIGN KEY (restaurant_id)
+        REFERENCES public.restaurant (id) MATCH SIMPLE
+        ON DELETE CASCADE
+        NOT VALID,
+    CONSTRAINT fk_category FOREIGN KEY (category_id)
+        REFERENCES public.product_category (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        NOT VALID
+) PARTITION BY RANGE (category_id);
+ALTER SEQUENCE product_id_seq OWNED BY product.id;
+
+
+CREATE SEQUENCE shipping_id_seq;
+CREATE TABLE public.shipping
+(
+    id int NOT NULL DEFAULT nextval('shipping_id_seq'),
+    name character varying(30),
+    PRIMARY KEY (id)
+);
+
+ALTER SEQUENCE shipping_id_seq OWNED BY shipping.id;
+
+CREATE SEQUENCE order_id_seq;
+CREATE TABLE public.cart
+(
+    id int NOT NULL DEFAULT nextval('order_id_seq'),
+    customer_id int,
+    restaurant_id int,
+    ship_id int,
+    order_date timestamp with time zone,
+    note character varying(255),
+    order_status character varying(20),
+    distance numeric(12, 3),
+    total numeric(12, 3),
+    PRIMARY KEY (id),
+    CONSTRAINT fk_customer FOREIGN KEY (customer_id)
+        REFERENCES public.account (user_id) MATCH SIMPLE
+        ON DELETE CASCADE,
+    CONSTRAINT fk_restaurant FOREIGN KEY (restaurant_id)
+        REFERENCES public.restaurant (id) MATCH SIMPLE
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_shipping FOREIGN KEY (ship_id)
+        REFERENCES public.shipping (id) MATCH SIMPLE
+
+);
+ALTER SEQUENCE order_id_seq OWNED BY cart.id;
+
+
+CREATE TABLE public.cart_lines
+(
+    cart_id int,
+    product_id int,
+    quanity int DEFAULT 0,
+    price numeric(12, 3),
+    item_total numeric(12, 3),
+    PRIMARY KEY (cart_id, product_id),
+    CONSTRAINT fk_cartid_lines FOREIGN KEY (cart_id)
+        REFERENCES public.cart (id) MATCH SIMPLE
+        ON DELETE CASCADE
+);
+
+
+INSERT INTO city(id, name)
+VALUES(0, 'Sai Gon'),
+      (1, 'Ha Noi'),
+      (2, 'Da Nang');
+INSERT INTO product_category(name)
+VALUES    ('Bento'),
+	  ('Boba'),
+	  ('Burger'),
+	  ('Chicken'),
+	  ('Dessert'),
+	  ('Drink'),
+	  ('Hot Pot'),
+	  ('Phở'),
+	  ('Pizza'),
+	  ('Sushi');
+INSERT INTO shipping(name)
+VALUES('Baemin'),
+('Grab'),
+('Gojek'),
+('Now'),
+('Uber');
