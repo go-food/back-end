@@ -1,14 +1,26 @@
 package gofood.cartLines;
 
+import entities.CartLinesEntityPK;
 import gofood.base.BaseEntity;
+import gofood.cart.Cart;
+import gofood.product.Product;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "cart_line")
-public class CartLine extends BaseEntity {
+@IdClass(CartLinesEntityPK.class)
+public class CartLine extends BaseEntity{
+
+    @Column
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "productId", referencedColumnName = "id", nullable = false)
+    private Cart cartId;
+    @Column
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "productId", referencedColumnName = "id", nullable = false)
+    private Product productId;
+
     @Column
     private Integer quantity;
     @Column
@@ -16,6 +28,21 @@ public class CartLine extends BaseEntity {
     @Column
     private Double itemTotal;
 
+    public Cart getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(Cart cartId) {
+        this.cartId = cartId;
+    }
+
+    public Product getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Product productId) {
+        this.productId = productId;
+    }
     public Integer getQuantity() {
         return quantity;
     }

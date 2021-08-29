@@ -4,14 +4,18 @@ import gofood.base.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "account")
+@Table(name = "account", indexes = {
+        @Index(columnList = "password", name = "acc_pass_idx"),
+        @Index(columnList = "email", name = "acc_email_idx"),
+})
 public class Account extends BaseEntity {
     @Column
     private String name;
-    @Column
+    @Column(unique = true)
     private String email;
     @Column
     private String password;

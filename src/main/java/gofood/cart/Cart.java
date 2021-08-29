@@ -1,11 +1,11 @@
 package gofood.cart;
 
 import gofood.base.BaseEntity;
+import gofood.cartLines.CartLine;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "cart")
@@ -18,6 +18,10 @@ public class Cart extends BaseEntity {
     private String orderStatus;
     @Column
     private Double total;
+
+    @OneToMany
+    @JoinColumn(name = "cartId", referencedColumnName = "productid")
+    private List<CartLine> lines;
 
     public Date getOrderDate() {
         return orderDate;
