@@ -12,20 +12,20 @@ import javax.persistence.*;
 @IdClass(CartLinesEntityPK.class)
 public class CartLine extends BaseEntity{
 
-    @Column
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "productId", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "cart_id", referencedColumnName = "id", nullable = false)
     private Cart cartId;
-    @Column
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productId", referencedColumnName = "id", nullable = false)
     private Product productId;
 
-    @Column
+    @Column(name = "quanity")
     private Integer quantity;
-    @Column
+    @Column(name = "price")
     private Double price;
-    @Column
+    @Column(name = "item_total")
     private Double itemTotal;
 
     public Cart getCartId() {

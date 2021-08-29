@@ -8,23 +8,21 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "account", indexes = {
-        @Index(columnList = "password", name = "acc_pass_idx"),
-        @Index(columnList = "email", name = "acc_email_idx"),
-})
+@Table(name = "account")
 public class Account extends BaseEntity {
-    @Column
+    @Column(name = "user_name")
     private String name;
-    @Column(unique = true)
+    @Column(name = "email",unique = true)
     private String email;
-    @Column
+    @Column(name = "pass")
     private String password;
-    @Column
+    @Column(name = "phone")
     private String phoneNumber;
-    @Column
+    @Column(name = "address")
     private String address;
-    @Column
+    @Column(name = "balance")
     private Double balance;
+
 
     public String getName() {
         return name;
