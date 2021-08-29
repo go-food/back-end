@@ -8,9 +8,9 @@ import javax.transaction.Transactional;
 
 @Service
 @Transactional
-public class CartLinesService extends BaseService<CartLines> {
+public class CartLineService extends BaseService<CartLine> {
     @Autowired
-    protected CartLinesService(CartLinesRepository repo) {
+    protected CartLineService(CartLineRepository repo) {
         super(repo);
     }
 }

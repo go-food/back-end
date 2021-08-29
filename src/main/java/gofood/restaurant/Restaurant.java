@@ -3,72 +3,44 @@ package gofood.restaurant;
 import gofood.base.BaseEntity;
 
 import javax.persistence.Column;
-import javax.persistence.Id;
-import java.sql.Date;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "restaurant")
 public class Restaurant extends BaseEntity {
-    @Column
-    @Id
-    private Integer id;
     @Column
     private String address;
     @Column
-    private Integer cityId;
+    private String name;
     @Column
-    private Date openTime;
+    private String description;
     @Column
-    private Date closeTime;
+    private String openTime;
     @Column
-    private Boolean status;
+    private String closeTime;
 
-
-    @Override
-    public Integer getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAddress() {
-        return address;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Integer getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(Integer cityId) {
-        this.cityId = cityId;
-    }
-
-    public Date getOpenTime() {
-        return openTime;
-    }
-
-    public void setOpenTime(Date openTime) {
+    public void setOpenTime(String openTime) {
         this.openTime = openTime;
     }
 
-    public Date getCloseTime() {
-        return closeTime;
-    }
-
-    public void setCloseTime(Date closeTime) {
+    public void setCloseTime(String closeTime) {
         this.closeTime = closeTime;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
     }
 }

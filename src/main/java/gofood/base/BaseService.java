@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class BaseService<T extends BaseEntity> {
-    private static final int RESULTS_PER_PAGE = 5;
 
     protected JpaRepository<T, Integer> repo;
 

@@ -3,24 +3,14 @@ package gofood.productCategory;
 import gofood.base.BaseEntity;
 
 import javax.persistence.Column;
-import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "product_category")
 public class ProductCategory extends BaseEntity {
-    @Id
-    @Column
-    private Integer id;
     @Column
     private String name;
-
-    @Override
-    public Integer getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
