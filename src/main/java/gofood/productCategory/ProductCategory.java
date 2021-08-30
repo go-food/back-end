@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "product_category")
 public class ProductCategory extends BaseEntity {
-    @Column(name = "name")
+    @Column
     private String name;
 
     @OneToMany(mappedBy="category")

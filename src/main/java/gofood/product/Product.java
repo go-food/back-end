@@ -1,5 +1,6 @@
 package gofood.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import entities.ProductCategoryEntity;
 import gofood.account.Account;
 import gofood.base.BaseEntity;
@@ -17,19 +18,28 @@ public class Product extends BaseEntity {
     private String description;
     @Column
     private Double price;
-
-    @Column(name = "has_sold")
+    @Column
     private Integer hasSold;
-    @Column(name = "active")
+    @Column
     private Boolean active;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurant_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JsonIgnoreProperties("products")
     private Restaurant restaurant;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JsonIgnoreProperties("products")
     private ProductCategory category;
+
+    public ProductCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(ProductCategory category) {
+        this.category = category;
+    }
 
     public String getName() {
         return name;
@@ -77,13 +87,5 @@ public class Product extends BaseEntity {
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
-    }
-
-    public ProductCategory getProductCategoryByCategoryId() {
-        return category;
-    }
-
-    public void setProductCategoryByCategoryId(ProductCategory category) {
-        this.category = category;
     }
 }

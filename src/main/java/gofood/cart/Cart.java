@@ -1,38 +1,44 @@
 package gofood.cart;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import gofood.account.Account;
 import gofood.base.BaseEntity;
 import gofood.cartLines.CartLine;
 import gofood.restaurant.Restaurant;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "cart")
 public class Cart extends BaseEntity {
 
-    @Column(name = "order_date")
+    @Column
+    @Temporal(value = TemporalType.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date orderDate;
-    @Column(name = "note")
+    @Column
     private String note;
-    @Column(name = "order_status")
+    @Column
     private Boolean orderStatus;
 
-    @Column(name = "total")
+    @Column
     private Double total;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false)
-    private Account customerId;
+    @JoinColumn(referencedColumnName = "id", nullable = false)
+    private Account customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurant_id", referencedColumnName = "id", nullable = false)
-    private Restaurant restaurantId;
+    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JsonIgnoreProperties("products")
+    private Restaurant restaurant;
 
-    @OneToMany(mappedBy="cart")
-    private List<CartLine> lines;
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("cart")
+    private List<CartLine> cartLines;
 
     public Date getOrderDate() {
         return orderDate;
@@ -64,5 +70,29 @@ public class Cart extends BaseEntity {
 
     public void setTotal(Double total) {
         this.total = total;
+    }
+
+    public Account getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Account customer) {
+        this.customer = customer;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public List<CartLine> getCartLines() {
+        return cartLines;
+    }
+
+    public void setCartLines(List<CartLine> cartLines) {
+        this.cartLines = cartLines;
     }
 }

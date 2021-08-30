@@ -10,17 +10,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "account")
 public class Account extends BaseEntity {
-    @Column(name = "user_name")
+    @Column
     private String name;
-    @Column(name = "email",unique = true)
+    @Column(unique = true)
     private String email;
-    @Column(name = "pass")
+    @Column
     private String password;
-    @Column(name = "phone")
+    @Column
     private String phoneNumber;
-    @Column(name = "address")
+    @Column
     private String address;
-    @Column(name = "balance")
+    @Column
     private Double balance;
 
 

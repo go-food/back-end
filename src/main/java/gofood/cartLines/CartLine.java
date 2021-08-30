@@ -1,5 +1,6 @@
 package gofood.cartLines;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import entities.CartLinesEntityPK;
 import gofood.base.BaseEntity;
 import gofood.cart.Cart;
@@ -9,17 +10,15 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "cart_line")
-@IdClass(CartLinesEntityPK.class)
-public class CartLine extends BaseEntity{
-
+public class CartLine extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id", referencedColumnName = "id", nullable = false)
-    private Cart cartId;
+    @JoinColumn(referencedColumnName = "id", nullable = false)
+    private Cart cart;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "productId", referencedColumnName = "id", nullable = false)
-    private Product productId;
+    @JoinColumn(referencedColumnName = "id", nullable = false)
+    private Product product;
 
     @Column(name = "quanity")
     private Integer quantity;
@@ -28,21 +27,22 @@ public class CartLine extends BaseEntity{
     @Column(name = "item_total")
     private Double itemTotal;
 
-    public Cart getCartId() {
-        return cartId;
+    public Cart getCart() {
+        return cart;
     }
 
-    public void setCartId(Cart cartId) {
-        this.cartId = cartId;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
-    public Product getProductId() {
-        return productId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductId(Product productId) {
-        this.productId = productId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
+
     public Integer getQuantity() {
         return quantity;
     }

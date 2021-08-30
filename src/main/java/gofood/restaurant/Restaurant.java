@@ -1,10 +1,13 @@
 package gofood.restaurant;
 
 import gofood.base.BaseEntity;
+import gofood.product.Product;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "restaurant")
@@ -19,6 +22,33 @@ public class Restaurant extends BaseEntity {
     private String openTime;
     @Column
     private String closeTime;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<Product> products;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getOpenTime() {
+        return openTime;
+    }
+
+    public String getCloseTime() {
+        return closeTime;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 
     public String getName() {
         return name;
