@@ -59,16 +59,19 @@ public class JwtUtil {
     }
 
     public static Cookie createCookie(String token) {
-        Cookie cookie = new Cookie(COOKIE_NAME,token);
-                cookie.setMaxAge(3600000);
-                cookie.setHttpOnly(true);
-                cookie.setPath("/");
+        Cookie cookie = new Cookie(COOKIE_NAME, token);
+        cookie.setMaxAge(3600000);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
         return cookie;
     }
-    public static Cookie clearCookie(){
-        Cookie cookie = new Cookie(COOKIE_NAME,null);
+
+    public static Cookie clearCookie() {
+        Cookie cookie = new Cookie(COOKIE_NAME, null);
         cookie.setMaxAge(0);
         cookie.setHttpOnly(true);
+        cookie.setSecure(true);
         cookie.setPath("/");
         return cookie;
     }
