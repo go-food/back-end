@@ -12,16 +12,18 @@ import java.util.List;
 @Entity
 @Table(name = "restaurant")
 public class Restaurant extends BaseEntity {
-    @Column(nullable = false)
+    @Column(name="address",nullable = false)
     private String address;
-    @Column(nullable = false)
+    @Column(name="name",nullable = false)
     private String name;
-    @Column
+    @Column(name="description")
     private String description;
-    @Column
+    @Column(name="openTime")
     private String openTime;
-    @Column
+    @Column(name="closeTime")
     private String closeTime;
+    @Column(name="active")
+    private Boolean active;
 
     @OneToMany(mappedBy = "restaurant")
     private List<Product> products;
@@ -72,5 +74,13 @@ public class Restaurant extends BaseEntity {
 
     public void setCloseTime(String closeTime) {
         this.closeTime = closeTime;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

@@ -10,24 +10,24 @@ import javax.persistence.*;
 @Entity
 @Table(name = "product")
 public class Product extends BaseEntity {
-    @Column(nullable = false)
+    @Column(name="name",nullable = false)
     private String name;
-    @Column
+    @Column(name="description")
     private String description;
-    @Column(nullable = false)
+    @Column(name="price",nullable = false)
     private Double price;
-    @Column
+    @Column(name="has_Sold")
     private Integer hasSold;
-    @Column
+    @Column(name="active")
     private Boolean active;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(name="restaurant_id",referencedColumnName = "id", nullable = false)
     @JsonIgnoreProperties("products")
     private Restaurant restaurant;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(name="category_id",referencedColumnName = "id", nullable = false)
     @JsonIgnoreProperties("products")
     private ProductCategory category;
 

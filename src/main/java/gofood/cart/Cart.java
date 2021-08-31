@@ -17,25 +17,25 @@ import java.util.List;
 @Table(name = "cart")
 public class Cart extends BaseEntity {
 
-    @Column
+    @Column (name="cart_date")
     @Temporal(value = TemporalType.DATE)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date orderDate;
-    @Column
+    @Column(name="note")
     private String note;
-    @Column
+    @Column(name="status")
     private Boolean orderStatus;
 
-    @Column
+    @Column(name="total")
     private Double total;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(name="customer_id",referencedColumnName = "id", nullable = false)
     @JsonBackReference
     private Account customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(name="restaurant_id",referencedColumnName = "id", nullable = false)
     @JsonIgnoreProperties("products")
     private Restaurant restaurant;
 

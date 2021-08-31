@@ -13,17 +13,17 @@ import java.util.List;
 @Entity
 @Table(name = "account")
 public class Account extends BaseEntity {
-    @Column(nullable = false)
+    @Column(name="name",nullable = false)
     private String name;
-    @Column(unique = true, nullable = false)
+    @Column(name="email",unique = true, nullable = false)
     private String email;
-    @Column(nullable = false)
+    @Column(name="password",nullable = false)
     private String password;
-    @Column(nullable = false)
+    @Column(name="phoneNumber",nullable = false)
     private String phoneNumber;
-    @Column(nullable = false)
+    @Column(name="address",nullable = false)
     private String address;
-    @Column
+    @Column(name = "balance")
     private Double balance;
 
     @OneToMany(mappedBy = "customer", orphanRemoval = true)

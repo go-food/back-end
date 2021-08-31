@@ -12,12 +12,12 @@ import javax.persistence.*;
 public class CartLine extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(name="cart_id",referencedColumnName = "id", nullable = false)
     @JsonBackReference
     private Cart cart;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(name="product_id",referencedColumnName = "id", nullable = false)
     private Product product;
 
     @Column(nullable = false)
