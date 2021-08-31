@@ -4,10 +4,8 @@ import gofood.account.AccountRepository;
 import gofood.base.BaseService;
 import gofood.cartLines.CartLine;
 import gofood.product.ProductRepository;
-import gofood.restaurant.Restaurant;
 import gofood.restaurant.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -35,6 +33,7 @@ public class CartService extends BaseService<Cart> {
         for (CartLine cartLine : cart.getCartLines()) {
             cartLine.setProduct(productRepository.findById(cartLine.getProduct().getId()).get());
             cartLine.setCart(cart);
+            cartLine.setPrice(cartLine.getProduct().getPrice());
             cartLine.setItemTotal(cartLine.getProduct().getPrice() * cartLine.getQuantity());
             total += cartLine.getItemTotal();
         }

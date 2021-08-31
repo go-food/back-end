@@ -1,7 +1,6 @@
 package gofood.cartLines;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import entities.CartLinesEntityPK;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import gofood.base.BaseEntity;
 import gofood.cart.Cart;
 import gofood.product.Product;
@@ -14,17 +13,18 @@ public class CartLine extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JsonBackReference
     private Cart cart;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id", nullable = false)
     private Product product;
 
-    @Column(name = "quanity")
+    @Column(nullable = false)
     private Integer quantity;
-    @Column(name = "price")
+    @Column(nullable = false)
     private Double price;
-    @Column(name = "item_total")
+    @Column(nullable = false)
     private Double itemTotal;
 
     public Cart getCart() {

@@ -1,8 +1,6 @@
 package gofood.product;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import entities.ProductCategoryEntity;
-import gofood.account.Account;
 import gofood.base.BaseEntity;
 import gofood.productCategory.ProductCategory;
 import gofood.restaurant.Restaurant;
@@ -12,11 +10,11 @@ import javax.persistence.*;
 @Entity
 @Table(name = "product")
 public class Product extends BaseEntity {
-    @Column
+    @Column(nullable = false)
     private String name;
     @Column
     private String description;
-    @Column
+    @Column(nullable = false)
     private Double price;
     @Column
     private Integer hasSold;

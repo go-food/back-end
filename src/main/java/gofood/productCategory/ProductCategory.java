@@ -1,7 +1,6 @@
 package gofood.productCategory;
 
 import gofood.base.BaseEntity;
-import gofood.cartLines.CartLine;
 import gofood.product.Product;
 
 import javax.persistence.Column;

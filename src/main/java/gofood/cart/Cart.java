@@ -1,6 +1,8 @@
 package gofood.cart;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import gofood.account.Account;
 import gofood.base.BaseEntity;
 import gofood.cartLines.CartLine;
@@ -29,6 +31,7 @@ public class Cart extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JsonBackReference
     private Account customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,8 +39,8 @@ public class Cart extends BaseEntity {
     @JsonIgnoreProperties("products")
     private Restaurant restaurant;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("cart")
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<CartLine> cartLines;
 
     public Date getOrderDate() {

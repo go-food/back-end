@@ -12,9 +12,9 @@ import java.util.List;
 @Entity
 @Table(name = "restaurant")
 public class Restaurant extends BaseEntity {
-    @Column
+    @Column(nullable = false)
     private String address;
-    @Column
+    @Column(nullable = false)
     private String name;
     @Column
     private String description;

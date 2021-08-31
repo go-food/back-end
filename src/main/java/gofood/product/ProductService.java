@@ -1,9 +1,7 @@
 package gofood.product;
 
 import gofood.base.BaseService;
-import gofood.productCategory.ProductCategory;
 import gofood.productCategory.ProductCategoryRepository;
-import gofood.restaurant.Restaurant;
 import gofood.restaurant.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,27 +1,34 @@
 package gofood.account;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import gofood.base.BaseEntity;
+import gofood.cart.Cart;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Index;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "account")
 public class Account extends BaseEntity {
-    @Column
+    @Column(nullable = false)
     private String name;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
-    @Column
+    @Column(nullable = false)
     private String password;
-    @Column
+    @Column(nullable = false)
     private String phoneNumber;
-    @Column
+    @Column(nullable = false)
     private String address;
     @Column
     private Double balance;
+
+    @OneToMany(mappedBy = "customer", orphanRemoval = true)
+    @JsonManagedReference
+    private List<Cart> carts;
 
 
     public String getName() {
