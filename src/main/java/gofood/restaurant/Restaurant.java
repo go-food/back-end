@@ -28,6 +28,18 @@ public class Restaurant extends BaseEntity {
     @OneToMany(mappedBy = "restaurant")
     private List<Product> products;
 
+    public Restaurant() {
+    }
+
+    public Restaurant(String address, String name, String description, String openTime, String closeTime, Boolean active) {
+        this.address = address;
+        this.name = name;
+        this.description = description;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
+        this.active = active;
+    }
+
     public String getAddress() {
         return address;
     }

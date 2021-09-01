@@ -30,6 +30,17 @@ public class Account extends BaseEntity {
     @JsonManagedReference
     private List<Cart> carts;
 
+    public Account() {
+    }
+
+    public Account(String name, String email, String password, String phoneNumber, String address, Double balance) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.balance = balance;
+    }
 
     public String getName() {
         return name;
