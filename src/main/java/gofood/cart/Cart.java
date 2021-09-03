@@ -17,30 +17,28 @@ import java.util.List;
 @Table(name = "cart")
 public class Cart extends BaseEntity {
 
-    @Column (name="cart_date")
+    @Column(name = "cart_date")
     @Temporal(value = TemporalType.DATE)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date orderDate;
-    @Column(name="note")
+    @Column(name = "note")
     private String note;
-    @Column(name="status")
+    @Column(name = "status")
     private Boolean orderStatus;
 
-    @Column(name="total")
+    @Column(name = "total")
     private Double total;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="customer_id",referencedColumnName = "id", nullable = false)
-    @JsonBackReference
+    @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false)
     private Account customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="restaurant_id",referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "id", nullable = false)
     @JsonIgnoreProperties("products")
     private Restaurant restaurant;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private List<CartLine> cartLines;
 
     public Date getOrderDate() {

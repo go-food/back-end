@@ -1,5 +1,6 @@
 package gofood.account;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import gofood.base.BaseEntity;
 import gofood.cart.Cart;
@@ -27,7 +28,7 @@ public class Account extends BaseEntity {
     private Double balance;
 
     @OneToMany(mappedBy = "customer", orphanRemoval = true)
-    @JsonManagedReference
+    @JsonIgnore
     private List<Cart> carts;
 
     public Account() {
