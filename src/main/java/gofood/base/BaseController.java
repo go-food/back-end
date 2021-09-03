@@ -32,10 +32,10 @@ public abstract class BaseController<T extends BaseEntity> {
         return service.deleteById(id);
     }
 
-    @DeleteMapping
-    public HttpStatus deleteAll() {
-        return service.deleteAll();
-    }
+//    @DeleteMapping
+//    public HttpStatus deleteAll() {
+//        return service.deleteAll();
+//    }
 
     @PatchMapping(value = "/{id}")
     public T updateById(@RequestBody T t, @PathVariable("id") Integer id) {
