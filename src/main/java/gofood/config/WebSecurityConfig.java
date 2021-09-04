@@ -15,13 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final AccountService accountService;
-
-    @Autowired
-    public WebSecurityConfig(@Lazy AccountService accountService) {
-        this.accountService = accountService;
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
