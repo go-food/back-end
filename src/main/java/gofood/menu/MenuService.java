@@ -1,4 +1,4 @@
-package gofood.productCategory;
+package gofood.menu;
 
 import gofood.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +8,9 @@ import javax.transaction.Transactional;
 
 @Service
 @Transactional
-public class ProductCategoryService extends BaseService<ProductCategory> {
+public class MenuService extends BaseService<Menu> {
     @Autowired
-    protected ProductCategoryService(ProductCategoryRepository repo) {
+    protected MenuService(MenuRepository repo) {
         super(repo);
     }
 }

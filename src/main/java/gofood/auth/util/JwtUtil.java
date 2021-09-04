@@ -1,11 +1,8 @@
 package gofood.auth.util;
 
-import gofood.auth.LoginDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.http.ResponseCookie;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;

@@ -11,13 +11,14 @@ import java.util.List;
 @Transactional
 public class RestaurantService extends BaseService<Restaurant> {
     RestaurantRepository restaurantRepository;
+
     @Autowired
     protected RestaurantService(RestaurantRepository repo) {
         super(repo);
         this.restaurantRepository = repo;
     }
 
-    public List<Restaurant> findRestaurant(String name){
+    public List<Restaurant> findRestaurant(String name) {
         return restaurantRepository.findAllByNameContains(name);
     }
 }

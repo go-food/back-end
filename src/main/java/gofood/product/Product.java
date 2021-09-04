@@ -1,8 +1,8 @@
 package gofood.product;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import gofood.base.BaseEntity;
-import gofood.productCategory.ProductCategory;
+import gofood.menu.Menu;
 import gofood.restaurant.Restaurant;
 
 import javax.persistence.*;
@@ -10,33 +10,33 @@ import javax.persistence.*;
 @Entity
 @Table(name = "product")
 public class Product extends BaseEntity {
-    @Column(name="name",nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
-    @Column(name="price",nullable = false)
+    @Column(name = "price", nullable = false)
     private Double price;
-    @Column(name="has_Sold")
+    @Column(name = "has_Sold")
     private Integer hasSold;
-    @Column(name="active")
+    @Column(name = "active")
     private Boolean active;
 
     @ManyToOne
-    @JoinColumn(name="restaurant_id",referencedColumnName = "id", nullable = false)
-    @JsonIgnoreProperties("products")
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnore
     private Restaurant restaurant;
 
     @ManyToOne
-    @JoinColumn(name="category_id",referencedColumnName = "id", nullable = false)
-    @JsonIgnoreProperties("products")
-    private ProductCategory category;
+    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JsonIgnore
+    private Menu menu;
 
-    public ProductCategory getCategory() {
-        return category;
+    public Menu getCategory() {
+        return menu;
     }
 
-    public void setCategory(ProductCategory category) {
-        this.category = category;
+    public void setCategory(Menu category) {
+        this.menu = category;
     }
 
     public String getName() {

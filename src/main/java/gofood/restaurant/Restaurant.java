@@ -12,17 +12,17 @@ import java.util.List;
 @Entity
 @Table(name = "restaurant")
 public class Restaurant extends BaseEntity {
-    @Column(name="address",nullable = false)
+    @Column(name = "address", nullable = false)
     private String address;
-    @Column(name="name",nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
-    @Column(name="openTime")
+    @Column(name = "openTime")
     private String openTime;
-    @Column(name="closeTime")
+    @Column(name = "closeTime")
     private String closeTime;
-    @Column(name="active")
+    @Column(name = "active")
     private Boolean active;
 
     @OneToMany(mappedBy = "restaurant")

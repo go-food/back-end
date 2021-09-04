@@ -1,4 +1,4 @@
-package gofood.productCategory;
+package gofood.menu;
 
 import gofood.base.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/product-categories")
-public class ProductCategoryController extends BaseController<ProductCategory> {
+@RequestMapping("/menus")
+public class MenuController extends BaseController<Menu> {
     @Autowired
-    public ProductCategoryController(ProductCategoryService service) {
+    public MenuController(MenuService service) {
         super(service);
     }
 }

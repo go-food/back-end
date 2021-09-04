@@ -1,8 +1,6 @@
 package gofood.cart;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import gofood.account.Account;
 import gofood.base.BaseEntity;
 import gofood.cartLines.CartLine;

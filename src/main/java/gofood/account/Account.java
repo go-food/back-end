@@ -1,7 +1,6 @@
 package gofood.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import gofood.base.BaseEntity;
 import gofood.cart.Cart;
 
@@ -14,15 +13,15 @@ import java.util.List;
 @Entity
 @Table(name = "account")
 public class Account extends BaseEntity {
-    @Column(name="name",nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name="email",unique = true, nullable = false)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
-    @Column(name="password",nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
-    @Column(name="phoneNumber",nullable = false)
+    @Column(name = "phoneNumber", nullable = false)
     private String phoneNumber;
-    @Column(name="address",nullable = false)
+    @Column(name = "address", nullable = false)
     private String address;
     @Column(name = "balance")
     private Double balance;
