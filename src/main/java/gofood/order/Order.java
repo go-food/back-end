@@ -51,12 +51,12 @@ public class Order extends BaseEntity {
     private Double total;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false)
     @JsonView(View.General.class)
-    private Account account;
+    private Account customer;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "id", nullable = false)
     @JsonIgnoreProperties("products")
     @JsonView(View.General.class)
     private Restaurant restaurant;
@@ -113,12 +113,12 @@ public class Order extends BaseEntity {
         this.total = total;
     }
 
-    public Account getAccount() {
-        return account;
+    public Account getCustomer() {
+        return customer;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setCustomer(Account customer) {
+        this.customer = customer;
     }
 
     @JsonView(View.General.class)
