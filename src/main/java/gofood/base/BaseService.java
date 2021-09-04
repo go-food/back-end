@@ -41,15 +41,15 @@ public abstract class BaseService<T extends BaseEntity> {
         }
     }
 
-    @Transactional
-    public HttpStatus deleteAll() {
-        try {
-            repo.deleteAll();
-            return HttpStatus.OK;
-        } catch (Exception e) {
-            return HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-    }
+//    @Transactional
+//    public HttpStatus deleteAll() {
+//        try {
+//            repo.deleteAll();
+//            return HttpStatus.OK;
+//        } catch (Exception e) {
+//            return HttpStatus.INTERNAL_SERVER_ERROR;
+//        }
+//    }
 
     @Transactional
     public T updateById(T t, Integer id) {

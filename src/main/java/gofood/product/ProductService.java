@@ -4,6 +4,7 @@ import gofood.base.BaseService;
 import gofood.menu.MenuRepository;
 import gofood.restaurant.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -25,10 +26,10 @@ public class ProductService extends BaseService<Product> {
     }
 
     @Override
-    public Product add(Product product) {
-        product.setRestaurant(restaurantRepository.findById(product.getRestaurant().getId()).get());
-        product.setCategory(menuRepository.findById(product.getCategory().getId()).get());
-        return super.add(product);
+    public HttpStatus deleteById(Integer id) {
+        Product product = repo.findById(id).get();
+        product.getOrderLines().forEach(orderLine -> orderLine.setProduct(null));
+        return super.deleteById(id);
     }
 
     public List<Product> findRestaurant(String name) {

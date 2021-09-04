@@ -1,35 +1,46 @@
 package gofood.account;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import gofood.auth.util.JwtUtil;
 import gofood.base.BaseController;
-import gofood.exceptions.HttpUnauthorizedException;
+import gofood.order.Order;
+import gofood.order.OrderService;
+import gofood.serializer.View;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.WebUtils;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/accounts")
 public class AccountController extends BaseController<Account> {
+
+    private final OrderService orderService;
     @Autowired
-    public AccountController(AccountService service) {
+    public AccountController(AccountService service, OrderService orderService) {
         super(service);
+        this.orderService = orderService;
     }
 
     @GetMapping("/me")
     public Account getCurrentUser(HttpServletRequest request) {
-        Cookie cookie = WebUtils.getCookie(request, JwtUtil.COOKIE_NAME);
-        if (cookie == null) throw new HttpUnauthorizedException();
-
-        String idString = JwtUtil.extractId(cookie.getValue());
-        if (idString == null) throw new HttpUnauthorizedException();
-
-        return service.getById(Integer.valueOf(idString));
+        Integer id = JwtUtil.getRequestUserId(request);
+        return service.getById(id);
     }
+
+    @GetMapping("/me/orders")
+    @JsonView(View.General.class)
+    public List<Order> getCurrentUserOrders(HttpServletRequest request) {
+        Integer id = JwtUtil.getRequestUserId(request);
+        return service.getById(id).getOrders();
+    }
+    @PostMapping("/me/orders")
+    public Order createOrder(HttpServletRequest request,@RequestBody Order order) {
+        Integer id = JwtUtil.getRequestUserId(request);
+        order.setCustomer(service.getById(id));
+        return orderService.add(order);
+    }
+
 }

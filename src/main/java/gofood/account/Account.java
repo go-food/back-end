@@ -1,8 +1,11 @@
 package gofood.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 import gofood.base.BaseEntity;
-import gofood.cart.Cart;
+import gofood.order.Order;
+import gofood.serializer.View;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,33 +17,28 @@ import java.util.List;
 @Table(name = "account")
 public class Account extends BaseEntity {
     @Column(name = "name", nullable = false)
+    @JsonView(View.General.class)
     private String name;
+
     @Column(name = "email", unique = true, nullable = false)
     private String email;
+
     @Column(name = "password", nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
     @Column(name = "phoneNumber", nullable = false)
     private String phoneNumber;
+
     @Column(name = "address", nullable = false)
     private String address;
+
     @Column(name = "balance")
     private Double balance;
 
     @OneToMany(mappedBy = "customer", orphanRemoval = true)
     @JsonIgnore
-    private List<Cart> carts;
-
-    public Account() {
-    }
-
-    public Account(String name, String email, String password, String phoneNumber, String address, Double balance) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.balance = balance;
-    }
+    private List<Order> orders;
 
     public String getName() {
         return name;
@@ -88,5 +86,13 @@ public class Account extends BaseEntity {
 
     public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

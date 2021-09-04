@@ -1,28 +1,35 @@
 package gofood.product;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import gofood.base.BaseEntity;
+import gofood.orderlines.OrderLine;
 import gofood.menu.Menu;
 import gofood.restaurant.Restaurant;
+import gofood.serializer.View;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "product")
 public class Product extends BaseEntity {
     @Column(name = "name", nullable = false)
+    @JsonView(View.General.class)
     private String name;
-    @Column(name = "description")
-    private String description;
+
     @Column(name = "price", nullable = false)
+    @JsonView(View.General.class)
     private Double price;
-    @Column(name = "has_Sold")
-    private Integer hasSold;
-    @Column(name = "active")
-    private Boolean active;
+
+    @Column
+    private String description;
+
+    @Column
+    private String image;
 
     @ManyToOne
-    @JoinColumn(name = "restaurant_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(referencedColumnName = "id", nullable = false)
     @JsonIgnore
     private Restaurant restaurant;
 
@@ -31,12 +38,32 @@ public class Product extends BaseEntity {
     @JsonIgnore
     private Menu menu;
 
-    public Menu getCategory() {
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
+    private List<OrderLine> orderLines;
+
+    public List<OrderLine> getOrderLines() {
+        return orderLines;
+    }
+
+    public void setOrderLines(List<OrderLine> orderLines) {
+        this.orderLines = orderLines;
+    }
+
+    public Menu getMenu() {
         return menu;
     }
 
-    public void setCategory(Menu category) {
-        this.menu = category;
+    public void setMenu(Menu menu) {
+        this.menu = menu;
     }
 
     public String getName() {
@@ -61,22 +88,6 @@ public class Product extends BaseEntity {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public Integer getHasSold() {
-        return hasSold;
-    }
-
-    public void setHasSold(Integer hasSold) {
-        this.hasSold = hasSold;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
     }
 
     public Restaurant getRestaurant() {

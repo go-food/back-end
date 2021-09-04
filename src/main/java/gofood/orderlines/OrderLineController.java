@@ -1,4 +1,4 @@
-package gofood.cartLines;
+package gofood.orderlines;
 
 import gofood.base.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/cart-lines")
-public class CartLineController extends BaseController<CartLine> {
+@RequestMapping("/order-lines")
+public class OrderLineController extends BaseController<OrderLine> {
     @Autowired
-    public CartLineController(CartLineService service) {
+    public OrderLineController(OrderLineService service) {
         super(service);
     }
 }

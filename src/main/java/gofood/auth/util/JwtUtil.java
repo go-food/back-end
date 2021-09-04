@@ -1,11 +1,14 @@
 package gofood.auth.util;
 
+import gofood.exception.HttpUnauthorizedException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -71,5 +74,13 @@ public class JwtUtil {
         cookie.setSecure(true);
         cookie.setPath("/");
         return cookie;
+    }
+
+    public static Integer getRequestUserId(HttpServletRequest request){
+        Cookie cookie = WebUtils.getCookie(request, COOKIE_NAME);
+        if (cookie == null) throw new HttpUnauthorizedException();
+        String idString = extractId(cookie.getValue());
+        if (idString == null) throw new HttpUnauthorizedException();
+        return Integer.valueOf(idString);
     }
 }

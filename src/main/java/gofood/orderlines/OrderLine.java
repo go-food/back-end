@@ -1,41 +1,41 @@
-package gofood.cartLines;
+package gofood.orderlines;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 import gofood.base.BaseEntity;
-import gofood.cart.Cart;
+import gofood.order.Order;
 import gofood.product.Product;
+import gofood.serializer.View;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "cart_line")
-public class CartLine extends BaseEntity {
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id", referencedColumnName = "id", nullable = false)
-    @JsonIgnore
-    private Cart cart;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
-    @JsonIgnoreProperties({"restaurant", "category"})
-    private Product product;
+@Table(name = "order_line")
+public class OrderLine extends BaseEntity {
 
     @Column(nullable = false)
+    @JsonView(View.General.class)
     private Integer quantity;
+
     @Column(nullable = false)
+    @JsonView(View.General.class)
     private Double price;
+
     @Column(nullable = false)
+    @JsonView(View.General.class)
     private Double itemTotal;
 
-    public Cart getCart() {
-        return cart;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JsonIgnore
+    private Order order;
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName = "id")
+    @JsonIgnoreProperties({"restaurant", "category"})
+    @JsonView(View.General.class)
+    private Product product;
 
     public Product getProduct() {
         return product;
@@ -67,5 +67,12 @@ public class CartLine extends BaseEntity {
 
     public void setItemTotal(Double itemTotal) {
         this.itemTotal = itemTotal;
+    }
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

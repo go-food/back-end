@@ -1,4 +1,4 @@
-package gofood.cartLines;
+package gofood.orderlines;
 
 import gofood.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +8,9 @@ import javax.transaction.Transactional;
 
 @Service
 @Transactional
-public class CartLineService extends BaseService<CartLine> {
+public class OrderLineService extends BaseService<OrderLine> {
     @Autowired
-    protected CartLineService(CartLineRepository repo) {
+    protected OrderLineService(OrderLineRepository repo) {
         super(repo);
     }
 }

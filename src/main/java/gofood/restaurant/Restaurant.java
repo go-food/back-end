@@ -1,7 +1,9 @@
 package gofood.restaurant;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import gofood.base.BaseEntity;
-import gofood.product.Product;
+import gofood.menu.Menu;
+import gofood.serializer.View;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,31 +15,40 @@ import java.util.List;
 @Table(name = "restaurant")
 public class Restaurant extends BaseEntity {
     @Column(name = "address", nullable = false)
+    @JsonView(View.General.class)
     private String address;
+
     @Column(name = "name", nullable = false)
+    @JsonView(View.General.class)
     private String name;
+
+    @Column(name = "openTime")
+    @JsonView(View.General.class)
+    private String openTime;
+
+    @Column(name = "closeTime")
+    @JsonView(View.General.class)
+    private String closeTime;
+
     @Column(name = "description")
     private String description;
-    @Column(name = "openTime")
-    private String openTime;
-    @Column(name = "closeTime")
-    private String closeTime;
-    @Column(name = "active")
-    private Boolean active;
 
     @OneToMany(mappedBy = "restaurant")
-    private List<Product> products;
+    private List<Menu> menus;
+
+    @Column
+    @JsonView(View.General.class)
+    private String image;
 
     public Restaurant() {
     }
 
-    public Restaurant(String address, String name, String description, String openTime, String closeTime, Boolean active) {
+    public Restaurant(String address, String name, String description, String openTime, String closeTime) {
         this.address = address;
         this.name = name;
         this.description = description;
         this.openTime = openTime;
         this.closeTime = closeTime;
-        this.active = active;
     }
 
     public String getAddress() {
@@ -56,20 +67,20 @@ public class Restaurant extends BaseEntity {
         return closeTime;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<Menu> menus) {
+        this.menus = menus;
     }
 
     public String getDescription() {
@@ -88,11 +99,11 @@ public class Restaurant extends BaseEntity {
         this.closeTime = closeTime;
     }
 
-    public Boolean getActive() {
-        return active;
+    public String getImage() {
+        return image;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
+    public void setImage(String image) {
+        this.image = image;
     }
 }
