@@ -39,7 +39,7 @@ public class AccountController extends BaseController<Account> {
     @PostMapping("/me/orders")
     public Order createOrder(HttpServletRequest request,@RequestBody Order order) {
         Integer id = JwtUtil.getRequestUserId(request);
-        order.setCustomer(service.getById(id));
+        order.setAccount(service.getById(id));
         return orderService.add(order);
     }
 

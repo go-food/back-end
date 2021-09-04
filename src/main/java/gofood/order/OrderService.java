@@ -30,7 +30,7 @@ public class OrderService extends BaseService<Order> {
 
     @Override
     public Order add(Order order) {
-        if (order.getCustomer() == null) order.setCustomer(accountRepository.findById(order.getCustomer().getId()).get());
+        if (order.getAccount() == null) order.setAccount(accountRepository.findById(order.getAccount().getId()).get());
         order.setRestaurant(restaurantRepository.findById(order.getRestaurant().getId()).get());
         Double total = 0.0;
         for (OrderLine orderLine : order.getCartLines()) {

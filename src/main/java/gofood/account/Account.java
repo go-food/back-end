@@ -36,7 +36,7 @@ public class Account extends BaseEntity {
     @Column(name = "balance")
     private Double balance;
 
-    @OneToMany(mappedBy = "customer", orphanRemoval = true)
+    @OneToMany(mappedBy = "account", orphanRemoval = true)
     @JsonIgnore
     private List<Order> orders;
 
