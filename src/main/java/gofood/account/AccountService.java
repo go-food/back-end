@@ -38,4 +38,14 @@ public class AccountService extends BaseService<Account> {
         }
         return null;
     }
+
+    @Override
+    public Account updateById(Account updatedAccount, Integer id) {
+        Account account = repo.findById(id).get();
+        if (updatedAccount.getName() != null) account.setName(updatedAccount.getName());
+        if (updatedAccount.getEmail() != null) account.setEmail(updatedAccount.getEmail());
+        if (updatedAccount.getAddress() != null) account.setAddress(updatedAccount.getAddress());
+        if (updatedAccount.getPhoneNumber() != null) account.setPhoneNumber(updatedAccount.getPhoneNumber());
+        return account;
+    }
 }
