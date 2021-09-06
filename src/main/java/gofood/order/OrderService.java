@@ -1,6 +1,7 @@
 package gofood.order;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import gofood.account.Account;
 import gofood.account.AccountRepository;
 import gofood.base.BaseService;
 import gofood.orderlines.OrderLine;
@@ -41,6 +42,11 @@ public class OrderService extends BaseService<Order> {
             total += orderLine.getItemTotal();
         }
         order.setTotal(total);
-        return super.add(order);
+        Order createdOrder =  super.add(order);
+        Account customer = accountRepository.findById(createdOrder.getCustomer().getId()).get();
+
+        // email code
+
+        return createdOrder;
     }
 }
