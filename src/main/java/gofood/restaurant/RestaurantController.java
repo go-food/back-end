@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/restaurants")
@@ -33,11 +35,8 @@ public class RestaurantController extends BaseController<Restaurant> {
         return restaurantService.addMenuToRestaurant(restaurantId, menu);
     }
 
-    @Autowired
-    public RestaurantService restaurantService;
-
-    @PostMapping (value = "/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam("filename") String filename, @RequestParam("file")MultipartFile file) {
+    @PostMapping(value = "/upload")
+    public ResponseEntity<String> uploadFile(@RequestParam("filename") String filename, @RequestParam("file") MultipartFile file) {
         return new ResponseEntity<>(restaurantService.uploadImage("gofoodbucket", filename, file), HttpStatus.OK);
     }
 }

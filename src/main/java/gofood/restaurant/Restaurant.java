@@ -8,6 +8,7 @@ import gofood.serializer.View;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "restaurant")
@@ -39,9 +40,7 @@ public class Restaurant extends BaseEntity {
     private String image;
 
     @ManyToMany(mappedBy = "restaurants")
-    List<Account> users;
-    public Restaurant() {
-    }
+    private Set<Account> owners;
 
     public Restaurant(String address, String name, String description, String openTime, String closeTime) {
         this.address = address;
@@ -107,11 +106,13 @@ public class Restaurant extends BaseEntity {
         this.image = image;
     }
 
-    public List<Account> getUsers() {
-        return users;
+
+    public Set<Account> getOwners() {
+        return owners;
     }
 
-    public void setUsers(List<Account> users) {
-        this.users = users;
+    public void setOwners(Set<Account> owners) {
+        this.owners = owners;
     }
+
 }

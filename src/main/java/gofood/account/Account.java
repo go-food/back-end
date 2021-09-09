@@ -10,6 +10,7 @@ import gofood.serializer.View;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "account")
@@ -19,6 +20,7 @@ public class Account extends BaseEntity {
     private String name;
 
     @Column(name = "email", unique = true, nullable = false)
+    @JsonView(View.General.class)
     private String email;
 
     @Column(name = "password", nullable = false)
@@ -26,16 +28,18 @@ public class Account extends BaseEntity {
     private String password;
 
     @Column(name = "phoneNumber", nullable = false)
+    @JsonView(View.General.class)
     private String phoneNumber;
 
     @Column(name = "address", nullable = false)
+    @JsonView(View.General.class)
     private String address;
 
     @Column(name = "role")
-    private AccountRoles roles= AccountRoles.CUSTOMER;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @JsonView(View.General.class)
+    private Role role = Role.USER;
 
-    @Column(name = "balance")
-    private Double balance;
 
     @OneToMany(mappedBy = "customer", orphanRemoval = true)
     @JsonIgnore
@@ -46,7 +50,7 @@ public class Account extends BaseEntity {
             name = "restaurants",
             joinColumns = @JoinColumn(name = "account_id"),
             inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
-    List<Restaurant> restaurants;
+    private Set<Restaurant> restaurants;
 
     public String getName() {
         return name;
@@ -88,20 +92,8 @@ public class Account extends BaseEntity {
         this.address = address;
     }
 
-    public AccountRoles getRoles() {
-        return roles;
-    }
-
-    public void setRoles(AccountRoles roles) {
-        this.roles = roles;
-    }
-
-    public Double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(Double balance) {
-        this.balance = balance;
+    public Role getRole() {
+        return role;
     }
 
     public List<Order> getOrders() {
@@ -112,11 +104,11 @@ public class Account extends BaseEntity {
         this.orders = orders;
     }
 
-    public List<Restaurant> getRestaurants() {
+    public Set<Restaurant> getRestaurants() {
         return restaurants;
     }
 
-    public void setRestaurants(List<Restaurant> restaurants) {
+    public void setRestaurants(Set<Restaurant> restaurants) {
         this.restaurants = restaurants;
     }
 }

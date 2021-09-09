@@ -24,6 +24,12 @@ public class AccountController extends BaseController<Account> {
         this.orderService = orderService;
     }
 
+    @Override
+    @JsonView(View.General.class)
+    public List<Account> getAll() {
+        return super.getAll();
+    }
+
     @GetMapping("/me")
     public Account getCurrentUser(HttpServletRequest request) {
         Integer id = JwtUtil.getRequestUserId(request);
