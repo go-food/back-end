@@ -47,7 +47,7 @@ public class Account extends BaseEntity {
 
     @ManyToMany
     @JoinTable(
-            name = "restaurants",
+            name = "account_restaurant",
             joinColumns = @JoinColumn(name = "account_id"),
             inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
     private Set<Restaurant> restaurants;
