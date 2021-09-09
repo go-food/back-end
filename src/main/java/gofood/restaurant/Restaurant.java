@@ -1,14 +1,12 @@
 package gofood.restaurant;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import gofood.account.Account;
 import gofood.base.BaseEntity;
 import gofood.menu.Menu;
 import gofood.serializer.View;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -40,6 +38,8 @@ public class Restaurant extends BaseEntity {
     @JsonView(View.General.class)
     private String image;
 
+    @ManyToMany(mappedBy = "restaurants")
+    List<Account> users;
     public Restaurant() {
     }
 
@@ -105,5 +105,13 @@ public class Restaurant extends BaseEntity {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public List<Account> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<Account> users) {
+        this.users = users;
     }
 }

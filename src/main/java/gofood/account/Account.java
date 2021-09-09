@@ -5,12 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import gofood.base.BaseEntity;
 import gofood.order.Order;
+import gofood.restaurant.Restaurant;
 import gofood.serializer.View;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -33,12 +31,22 @@ public class Account extends BaseEntity {
     @Column(name = "address", nullable = false)
     private String address;
 
+    @Column(name = "role")
+    private AccountRoles roles= AccountRoles.CUSTOMER;
+
     @Column(name = "balance")
     private Double balance;
 
     @OneToMany(mappedBy = "customer", orphanRemoval = true)
     @JsonIgnore
     private List<Order> orders;
+
+    @ManyToMany
+    @JoinTable(
+            name = "restaurants",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
+    List<Restaurant> restaurants;
 
     public String getName() {
         return name;
@@ -80,6 +88,14 @@ public class Account extends BaseEntity {
         this.address = address;
     }
 
+    public AccountRoles getRoles() {
+        return roles;
+    }
+
+    public void setRoles(AccountRoles roles) {
+        this.roles = roles;
+    }
+
     public Double getBalance() {
         return balance;
     }
@@ -94,5 +110,13 @@ public class Account extends BaseEntity {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public List<Restaurant> getRestaurants() {
+        return restaurants;
+    }
+
+    public void setRestaurants(List<Restaurant> restaurants) {
+        this.restaurants = restaurants;
     }
 }
