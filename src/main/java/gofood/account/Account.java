@@ -1,6 +1,7 @@
 package gofood.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import gofood.base.BaseEntity;
@@ -50,7 +51,13 @@ public class Account extends BaseEntity {
             name = "account_restaurant",
             joinColumns = @JoinColumn(name = "account_id"),
             inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
+    @JsonIgnoreProperties("owners")
     private Set<Restaurant> restaurants;
+
+    @Column
+    @JsonView(View.General.class)
+    private String avatar;
+
 
     public String getName() {
         return name;
@@ -110,5 +117,13 @@ public class Account extends BaseEntity {
 
     public void setRestaurants(Set<Restaurant> restaurants) {
         this.restaurants = restaurants;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

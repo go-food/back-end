@@ -35,8 +35,13 @@ public class RestaurantController extends BaseController<Restaurant> {
         return restaurantService.addMenuToRestaurant(restaurantId, menu);
     }
 
-    @PostMapping(value = "/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam("filename") String filename, @RequestParam("file") MultipartFile file) {
-        return new ResponseEntity<>(restaurantService.uploadImage("gofoodbucket", filename, file), HttpStatus.OK);
+    @PostMapping("/{id}/image")
+    public HttpStatus uploadImage(@PathVariable("id") Integer id, @RequestPart(value = "file") MultipartFile file) {
+        return restaurantService.uploadImage(id, file);
+    }
+
+    @PostMapping("/{id}/owners")
+    public HttpStatus addOwner(@PathVariable("id") Integer restaurantId, @RequestBody Integer accountId) {
+        return restaurantService.addOwner(restaurantId, accountId);
     }
 }

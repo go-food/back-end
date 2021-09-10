@@ -1,5 +1,7 @@
 package gofood.restaurant;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import gofood.account.Account;
 import gofood.base.BaseEntity;
@@ -40,15 +42,8 @@ public class Restaurant extends BaseEntity {
     private String image;
 
     @ManyToMany(mappedBy = "restaurants")
+    @JsonIgnoreProperties("restaurants")
     private Set<Account> owners;
-
-    public Restaurant(String address, String name, String description, String openTime, String closeTime) {
-        this.address = address;
-        this.name = name;
-        this.description = description;
-        this.openTime = openTime;
-        this.closeTime = closeTime;
-    }
 
     public String getAddress() {
         return address;

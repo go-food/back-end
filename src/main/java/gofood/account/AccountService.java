@@ -1,9 +1,13 @@
 package gofood.account;
 
 import gofood.base.BaseService;
+import gofood.file.FileService;
+import gofood.restaurant.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
@@ -13,12 +17,14 @@ import java.util.Optional;
 public class AccountService extends BaseService<Account> {
     private final PasswordEncoder passwordEncoder;
     private final AccountRepository accountRepository;
+    private final FileService fileService;
 
     @Autowired
-    protected AccountService(AccountRepository repo, PasswordEncoder passwordEncoder) {
+    protected AccountService(AccountRepository repo, PasswordEncoder passwordEncoder, FileService fileService) {
         super(repo);
         this.accountRepository = repo;
         this.passwordEncoder = passwordEncoder;
+        this.fileService = fileService;
     }
 
     @Override
@@ -47,5 +53,11 @@ public class AccountService extends BaseService<Account> {
         if (updatedAccount.getAddress() != null) account.setAddress(updatedAccount.getAddress());
         if (updatedAccount.getPhoneNumber() != null) account.setPhoneNumber(updatedAccount.getPhoneNumber());
         return account;
+    }
+
+    public HttpStatus uploadAvatar(Integer id, MultipartFile multipartFile) {
+        Account account = repo.findById(id).get();
+        account.setAvatar(fileService.uploadImage(multipartFile));
+        return HttpStatus.OK;
     }
 }
