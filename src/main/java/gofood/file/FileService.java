@@ -22,12 +22,13 @@ public class FileService {
         this.amazonS3Client = amazonS3Client;
     }
 
-    public String uploadImage(MultipartFile file) {
+    public String uploadImage(String folder, MultipartFile file) {
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(file.getContentType());
         metadata.setContentLength(file.getSize());
 
         String key = generateFileName(file);
+        key = folder + key;
 
         try {
             amazonS3Client.putObject(BUCKET_NAME, key, file.getInputStream(), metadata);

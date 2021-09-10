@@ -32,7 +32,7 @@ public class ProductService extends BaseService<Product> {
 
     public HttpStatus uploadImage(Integer id, MultipartFile multipartFile) {
         Product product = repo.findById(id).get();
-        product.setImage(fileService.uploadImage(multipartFile));
+        product.setImage(fileService.uploadImage("products/", multipartFile));
         return HttpStatus.OK;
     }
 

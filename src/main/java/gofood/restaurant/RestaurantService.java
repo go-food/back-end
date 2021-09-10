@@ -43,7 +43,7 @@ public class RestaurantService extends BaseService<Restaurant> {
 
     public HttpStatus uploadImage(Integer id, MultipartFile multipartFile) {
         Restaurant restaurant = repo.findById(id).get();
-        restaurant.setImage(fileService.uploadImage(multipartFile));
+        restaurant.setImage(fileService.uploadImage("restaurants/", multipartFile));
         return HttpStatus.OK;
     }
 

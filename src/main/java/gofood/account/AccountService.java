@@ -57,7 +57,7 @@ public class AccountService extends BaseService<Account> {
 
     public HttpStatus uploadAvatar(Integer id, MultipartFile multipartFile) {
         Account account = repo.findById(id).get();
-        account.setAvatar(fileService.uploadImage(multipartFile));
+        account.setAvatar(fileService.uploadImage("accounts/", multipartFile));
         return HttpStatus.OK;
     }
 }
