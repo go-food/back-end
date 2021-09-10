@@ -50,7 +50,8 @@ public class RestaurantService extends BaseService<Restaurant> {
     public HttpStatus addOwner(Integer restaurantId, Integer accountId){
         Restaurant restaurant = repo.findById(restaurantId).get();
         Account account = accountRepository.findById(accountId).get();
-        restaurant.getOwners().add(account);
+        if (account.getRestaurants().contains(restaurant)) throw new RuntimeException("Account " + account.getId() + " is already an owner of restaurant!");
+        account.getRestaurants().add(restaurant);
         return HttpStatus.OK;
     }
 }

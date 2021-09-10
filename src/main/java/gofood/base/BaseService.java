@@ -2,6 +2,7 @@ package gofood.base;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Sort;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -16,7 +17,7 @@ public abstract class BaseService<T extends BaseEntity> {
     }
 
     public List<T> getAll() {
-        return repo.findAll();
+        return repo.findAll(sortByIdAsc());
     }
 
     @Transactional
@@ -41,18 +42,12 @@ public abstract class BaseService<T extends BaseEntity> {
         }
     }
 
-//    @Transactional
-//    public HttpStatus deleteAll() {
-//        try {
-//            repo.deleteAll();
-//            return HttpStatus.OK;
-//        } catch (Exception e) {
-//            return HttpStatus.INTERNAL_SERVER_ERROR;
-//        }
-//    }
-
     @Transactional
     public T updateById(T t, Integer id) {
         return null;
+    }
+
+    private Sort sortByIdAsc() {
+        return Sort.by(Sort.Direction.ASC, "id");
     }
 }
