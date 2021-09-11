@@ -39,7 +39,7 @@ public class Account extends BaseEntity {
     @Column(name = "role")
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @JsonView(View.General.class)
-    private Role role = Role.USER;
+    private String role = "user";
 
 
     @OneToMany(mappedBy = "customer", orphanRemoval = true)
@@ -99,7 +99,7 @@ public class Account extends BaseEntity {
         this.address = address;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
