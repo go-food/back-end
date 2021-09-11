@@ -34,7 +34,7 @@ public class Restaurant extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL)
     private List<Menu> menus;
 
     @Column
