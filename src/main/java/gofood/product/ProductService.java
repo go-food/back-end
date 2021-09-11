@@ -1,5 +1,6 @@
 package gofood.product;
 
+import gofood.account.Account;
 import gofood.base.BaseService;
 import gofood.file.FileService;
 import gofood.menu.MenuRepository;
@@ -36,4 +37,12 @@ public class ProductService extends BaseService<Product> {
         return HttpStatus.OK;
     }
 
+    @Override
+    public Product updateById(Product updatedProduct, Integer id) {
+        Product product = repo.findById(id).get();
+        if (updatedProduct.getName() != null) product.setName(updatedProduct.getName());
+        if (updatedProduct.getPrice() != null) product.setPrice(updatedProduct.getPrice());
+        if (updatedProduct.getDescription() != null) product.setDescription(updatedProduct.getDescription());
+        return product;
+    }
 }

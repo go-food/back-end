@@ -47,11 +47,23 @@ public class RestaurantService extends BaseService<Restaurant> {
         return HttpStatus.OK;
     }
 
-    public HttpStatus addOwner(Integer restaurantId, Integer accountId){
+    public HttpStatus addOwner(Integer restaurantId, Integer accountId) {
         Restaurant restaurant = repo.findById(restaurantId).get();
         Account account = accountRepository.findById(accountId).get();
-        if (account.getRestaurants().contains(restaurant)) throw new RuntimeException("Account " + account.getId() + " is already an owner of restaurant!");
+        if (account.getRestaurants().contains(restaurant))
+            throw new RuntimeException("Account " + account.getId() + " is already an owner of restaurant!");
         account.getRestaurants().add(restaurant);
         return HttpStatus.OK;
+    }
+
+    @Override
+    public Restaurant updateById(Restaurant updatedRestaurant, Integer id) {
+        Restaurant restaurant = repo.findById(id).get();
+        if (updatedRestaurant.getName() != null) restaurant.setName(updatedRestaurant.getName());
+        if (updatedRestaurant.getAddress() != null) restaurant.setAddress(updatedRestaurant.getAddress());
+        if (updatedRestaurant.getDescription() != null) restaurant.setDescription(updatedRestaurant.getDescription());
+        if (updatedRestaurant.getOpenTime() != null) restaurant.setOpenTime(updatedRestaurant.getOpenTime());
+        if (updatedRestaurant.getCloseTime() != null) restaurant.setCloseTime(updatedRestaurant.getCloseTime());
+        return restaurant;
     }
 }
