@@ -47,6 +47,8 @@ public class AccountService extends BaseService<Account> {
 
     @Override
     public Account updateById(Account updatedAccount, Integer id) {
+        boolean emailExists = accountRepository.findByEmail(updatedAccount.getEmail()).isPresent();
+        if (emailExists) throw new RuntimeException("Email already exists!");
         Account account = repo.findById(id).get();
         if (updatedAccount.getName() != null) account.setName(updatedAccount.getName());
         if (updatedAccount.getEmail() != null) account.setEmail(updatedAccount.getEmail());
