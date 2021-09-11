@@ -42,7 +42,7 @@ public class Account extends BaseEntity {
     private String role = "user";
 
 
-    @OneToMany(mappedBy = "customer", orphanRemoval = true)
+    @OneToMany(mappedBy = "customer", orphanRemoval = true,cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Order> orders;
 

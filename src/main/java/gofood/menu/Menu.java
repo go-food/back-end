@@ -14,7 +14,7 @@ public class Menu extends BaseEntity {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "menu")
+    @OneToMany(mappedBy = "menu",cascade = CascadeType.ALL)
     private List<Product> products;
 
     @ManyToOne
