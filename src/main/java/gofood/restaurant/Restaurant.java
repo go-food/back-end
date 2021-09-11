@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import gofood.account.Account;
 import gofood.base.BaseEntity;
 import gofood.menu.Menu;
+import gofood.request.Request;
 import gofood.serializer.View;
 
 import javax.persistence.*;
@@ -36,6 +37,9 @@ public class Restaurant extends BaseEntity {
 
     @OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL)
     private List<Menu> menus;
+
+    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL)
+    private List<Request> requests;
 
     @Column
     @JsonView(View.General.class)
@@ -110,4 +114,11 @@ public class Restaurant extends BaseEntity {
         this.owners = owners;
     }
 
+    public List<Request> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(List<Request> requests) {
+        this.requests = requests;
+    }
 }
