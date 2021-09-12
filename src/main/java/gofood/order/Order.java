@@ -44,7 +44,7 @@ public class Order extends BaseEntity {
 
     @Column(name = "status")
     @JsonView(View.General.class)
-    private OrderStatus orderStatus = OrderStatus.PENDING;
+    private String status = "pending";
 
     @Column(name = "total")
     @JsonView(View.General.class)
@@ -139,12 +139,12 @@ public class Order extends BaseEntity {
     }
 
 
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
+    public String getStatus() {
+        return status;
     }
 
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
+    public void setStatus(String orderStatus) {
+        this.status = orderStatus;
     }
 
     public List<OrderLine> getOrderLines() {

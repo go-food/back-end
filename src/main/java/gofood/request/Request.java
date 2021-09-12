@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "restaurant")
+@Table(name = "request")
 public class Request extends BaseEntity {
     @Column(name = "content", nullable = false)
     @JsonView(View.General.class)
@@ -17,7 +17,7 @@ public class Request extends BaseEntity {
 
     @Column(name = "status", nullable = false)
     @JsonView(View.General.class)
-    private RequestStatus requestStatus = RequestStatus.PENDING;
+    private String status = "pending";
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "id", nullable = false)
@@ -32,12 +32,12 @@ public class Request extends BaseEntity {
         this.content = content;
     }
 
-    public RequestStatus getRequestStatus() {
-        return requestStatus;
+    public String getRequestStatus() {
+        return status;
     }
 
-    public void setRequestStatus(RequestStatus requestStatus) {
-        this.requestStatus = requestStatus;
+    public void setRequestStatus(String requestStatus) {
+        this.status = requestStatus;
     }
 
     public Restaurant getRestaurant() {
