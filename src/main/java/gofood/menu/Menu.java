@@ -18,6 +18,7 @@ public class Menu extends BaseEntity {
     private String name;
 
     @OneToMany(mappedBy = "menu",cascade = CascadeType.ALL)
+    @JsonView(View.General.class)
     private List<Product> products;
 
     @ManyToOne
