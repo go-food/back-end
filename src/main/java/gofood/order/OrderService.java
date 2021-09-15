@@ -1,18 +1,15 @@
 package gofood.order;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import gofood.account.Account;
 import gofood.account.AccountRepository;
 import gofood.base.BaseService;
 import gofood.orderlines.OrderLine;
 import gofood.product.ProductRepository;
 import gofood.restaurant.RestaurantRepository;
-import gofood.serializer.View;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 @Transactional
@@ -31,7 +28,8 @@ public class OrderService extends BaseService<Order> {
 
     @Override
     public Order add(Order order) {
-        if (order.getCustomer() == null) order.setCustomer(accountRepository.findById(order.getCustomer().getId()).get());
+        if (order.getCustomer() == null)
+            order.setCustomer(accountRepository.findById(order.getCustomer().getId()).get());
         order.setRestaurant(restaurantRepository.findById(order.getRestaurant().getId()).get());
         Double total = 0.0;
         for (OrderLine orderLine : order.getCartLines()) {
@@ -42,7 +40,7 @@ public class OrderService extends BaseService<Order> {
             total += orderLine.getItemTotal();
         }
         order.setTotal(total);
-        Order createdOrder =  super.add(order);
+        Order createdOrder = super.add(order);
         Account customer = accountRepository.findById(createdOrder.getCustomer().getId()).get();
 
         // email code

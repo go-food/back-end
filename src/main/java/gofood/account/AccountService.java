@@ -2,7 +2,6 @@ package gofood.account;
 
 import gofood.base.BaseService;
 import gofood.file.FileService;
-import gofood.restaurant.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
