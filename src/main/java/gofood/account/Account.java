@@ -51,7 +51,7 @@ public class Account extends BaseEntity {
             name = "account_restaurant",
             joinColumns = @JoinColumn(name = "account_id"),
             inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
-    @JsonIgnoreProperties("owners")
+    @JsonIgnore
     private Set<Restaurant> restaurants;
 
     @Column
