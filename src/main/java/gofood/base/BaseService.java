@@ -1,8 +1,8 @@
 package gofood.base;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
-import org.springframework.data.domain.Sort;
 
 import javax.transaction.Transactional;
 import java.util.List;

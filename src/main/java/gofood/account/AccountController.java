@@ -21,6 +21,7 @@ public class AccountController extends BaseController<Account> {
 
     private final OrderService orderService;
     private final AccountService accountService;
+
     @Autowired
     public AccountController(AccountService service, OrderService orderService) {
         super(service);
@@ -35,6 +36,7 @@ public class AccountController extends BaseController<Account> {
     }
 
     @GetMapping("/me")
+    @JsonView(View.Detail.class)
     public Account getCurrentUser(HttpServletRequest request) {
         Integer id = JwtUtil.getRequestUserId(request);
         return service.getById(id);
@@ -48,7 +50,7 @@ public class AccountController extends BaseController<Account> {
     }
 
     @PostMapping("/me/orders")
-    public Order createOrder(HttpServletRequest request,@RequestBody Order order) {
+    public Order createOrder(HttpServletRequest request, @RequestBody Order order) {
         Integer id = JwtUtil.getRequestUserId(request);
         order.setCustomer(service.getById(id));
         return orderService.add(order);

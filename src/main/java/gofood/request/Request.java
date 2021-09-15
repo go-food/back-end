@@ -1,4 +1,5 @@
 package gofood.request;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import gofood.base.BaseEntity;

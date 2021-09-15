@@ -1,17 +1,13 @@
 package gofood.product;
 
-import gofood.account.Account;
 import gofood.base.BaseService;
 import gofood.file.FileService;
-import gofood.menu.MenuRepository;
-import gofood.restaurant.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 @Transactional

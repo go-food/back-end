@@ -42,7 +42,7 @@ public class Account extends BaseEntity {
     private String role = "user";
 
 
-    @OneToMany(mappedBy = "customer", orphanRemoval = true,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Order> orders;
 
@@ -51,7 +51,8 @@ public class Account extends BaseEntity {
             name = "account_restaurant",
             joinColumns = @JoinColumn(name = "account_id"),
             inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
-    @JsonIgnore
+    @JsonView(View.Detail.class)
+    @JsonIgnoreProperties({"menus", "owners"})
     private Set<Restaurant> restaurants;
 
     @Column

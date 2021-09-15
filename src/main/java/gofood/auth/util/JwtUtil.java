@@ -76,7 +76,7 @@ public class JwtUtil {
         return cookie;
     }
 
-    public static Integer getRequestUserId(HttpServletRequest request){
+    public static Integer getRequestUserId(HttpServletRequest request) {
         Cookie cookie = WebUtils.getCookie(request, COOKIE_NAME);
         if (cookie == null) throw new HttpUnauthorizedException();
         String idString = extractId(cookie.getValue());

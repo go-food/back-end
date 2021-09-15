@@ -3,8 +3,8 @@ package gofood.product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import gofood.base.BaseEntity;
-import gofood.orderlines.OrderLine;
 import gofood.menu.Menu;
+import gofood.orderlines.OrderLine;
 import gofood.restaurant.Restaurant;
 import gofood.serializer.View;
 

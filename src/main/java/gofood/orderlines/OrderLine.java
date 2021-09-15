@@ -68,6 +68,7 @@ public class OrderLine extends BaseEntity {
     public void setItemTotal(Double itemTotal) {
         this.itemTotal = itemTotal;
     }
+
     public Order getOrder() {
         return order;
     }
