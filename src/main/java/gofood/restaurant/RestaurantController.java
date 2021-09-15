@@ -64,8 +64,8 @@ public class RestaurantController extends BaseController<Restaurant> {
         return restaurantService.addOwner(restaurantId, email);
     }
 
-    @PostMapping("/{id}/owners")
-    public HttpStatus deleteOwner(@PathVariable("id") Integer restaurantId, @RequestBody Integer id) {
-        return restaurantService.deleteOwner(restaurantId, id);
+    @DeleteMapping("/{id}/owners/{ownerId}")
+    public HttpStatus deleteOwner(@PathVariable("id") Integer restaurantId, @PathVariable("ownerId") Integer ownerId) {
+        return restaurantService.deleteOwner(restaurantId, ownerId);
     }
 }
