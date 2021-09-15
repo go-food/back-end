@@ -6,6 +6,9 @@ import gofood.base.BaseService;
 import gofood.file.FileService;
 import gofood.menu.Menu;
 import gofood.menu.MenuRepository;
+import gofood.order.OrderRepository;
+import gofood.request.Request;
+import gofood.request.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -20,14 +23,18 @@ public class RestaurantService extends BaseService<Restaurant> {
     private final RestaurantRepository restaurantRepository;
     private final MenuRepository menuRepository;
     private final AccountRepository accountRepository;
+    private final RequestRepository requestRepository;
+    private final OrderRepository orderRepository;
     private final FileService fileService;
 
     @Autowired
-    protected RestaurantService(RestaurantRepository repo, MenuRepository menuRepository, AccountRepository accountRepository, FileService fileService) {
+    protected RestaurantService(RestaurantRepository repo, MenuRepository menuRepository, AccountRepository accountRepository, RequestRepository requestRepository, OrderRepository orderRepository, FileService fileService) {
         super(repo);
         this.restaurantRepository = repo;
         this.menuRepository = menuRepository;
         this.accountRepository = accountRepository;
+        this.requestRepository = requestRepository;
+        this.orderRepository = orderRepository;
         this.fileService = fileService;
     }
 
@@ -47,9 +54,9 @@ public class RestaurantService extends BaseService<Restaurant> {
         return HttpStatus.OK;
     }
 
-    public HttpStatus addOwner(Integer restaurantId, Integer accountId) {
+    public HttpStatus addOwner(Integer restaurantId, String email) {
         Restaurant restaurant = repo.findById(restaurantId).get();
-        Account account = accountRepository.findById(accountId).get();
+        Account account = accountRepository.findByEmail(email).get();
         if (account.getRestaurants().contains(restaurant))
             throw new RuntimeException("Account " + account.getId() + " is already an owner of restaurant!");
         account.getRestaurants().add(restaurant);
@@ -65,5 +72,11 @@ public class RestaurantService extends BaseService<Restaurant> {
         if (updatedRestaurant.getOpenTime() != null) restaurant.setOpenTime(updatedRestaurant.getOpenTime());
         if (updatedRestaurant.getCloseTime() != null) restaurant.setCloseTime(updatedRestaurant.getCloseTime());
         return restaurant;
+    }
+
+    public Request addRequestToRestaurant(Integer restaurantId, Request request) {
+        Restaurant restaurant = repo.findById(restaurantId).get();
+        request.setRestaurant(restaurant);
+        return requestRepository.save(request);
     }
 }

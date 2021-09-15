@@ -32,11 +32,11 @@ public class Request extends BaseEntity {
         this.content = content;
     }
 
-    public String getRequestStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setRequestStatus(String requestStatus) {
+    public void setStatus(String requestStatus) {
         this.status = requestStatus;
     }
 

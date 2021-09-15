@@ -1,9 +1,11 @@
 package gofood.menu;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import gofood.base.BaseEntity;
 import gofood.product.Product;
 import gofood.restaurant.Restaurant;
+import gofood.serializer.View;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.List;
 @Table(name = "menu")
 public class Menu extends BaseEntity {
     @Column
+    @JsonView(View.General.class)
     private String name;
 
     @OneToMany(mappedBy = "menu",cascade = CascadeType.ALL)

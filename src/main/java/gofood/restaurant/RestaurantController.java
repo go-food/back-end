@@ -3,6 +3,7 @@ package gofood.restaurant;
 import com.fasterxml.jackson.annotation.JsonView;
 import gofood.base.BaseController;
 import gofood.menu.Menu;
+import gofood.request.Request;
 import gofood.serializer.View;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,9 +31,27 @@ public class RestaurantController extends BaseController<Restaurant> {
         return super.getAll();
     }
 
+    @Override
+    @JsonView(View.Detail.class)
+    @GetMapping("/{id}")
+    public Restaurant getById(@PathVariable("id") Integer id) {
+        return super.getById(id);
+    }
+
+    @JsonView(View.Admin.class)
+    @GetMapping("/{id}/dashboard")
+    public Restaurant getDashboardDataById(@PathVariable("id") Integer id) {
+        return super.getById(id);
+    }
+
     @PostMapping("/{id}/menus")
     public Menu addMenuToRestaurant(@PathVariable("id") Integer restaurantId, @RequestBody Menu menu) {
         return restaurantService.addMenuToRestaurant(restaurantId, menu);
+    }
+
+    @PostMapping("/{id}/requests")
+    public Request addRequestToRestaurant(@PathVariable("id") Integer restaurantId, @RequestBody Request request) {
+        return restaurantService.addRequestToRestaurant(restaurantId, request);
     }
 
     @PostMapping("/{id}/image")
@@ -41,7 +60,7 @@ public class RestaurantController extends BaseController<Restaurant> {
     }
 
     @PostMapping("/{id}/owners")
-    public HttpStatus addOwner(@PathVariable("id") Integer restaurantId, @RequestBody Integer accountId) {
-        return restaurantService.addOwner(restaurantId, accountId);
+    public HttpStatus addOwner(@PathVariable("id") Integer restaurantId, @RequestBody String email) {
+        return restaurantService.addOwner(restaurantId, email);
     }
 }

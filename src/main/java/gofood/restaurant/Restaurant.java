@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import gofood.account.Account;
 import gofood.base.BaseEntity;
 import gofood.menu.Menu;
+import gofood.order.Order;
 import gofood.request.Request;
 import gofood.serializer.View;
 
@@ -34,20 +35,28 @@ public class Restaurant extends BaseEntity {
 
     @Column(name = "description")
     private String description;
-    
-    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL)
-    private List<Menu> menus;
-
-    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL)
-    private List<Request> requests;
 
     @Column
     @JsonView(View.General.class)
     private String image;
 
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    @JsonView(View.Detail.class)
+    private List<Menu> menus;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    @JsonView(View.Admin.class)
+    private List<Request> requests;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    @JsonView(View.Admin.class)
+    @JsonIgnoreProperties("restaurant")
+    private List<Order> orders;
+
     @ManyToMany(mappedBy = "restaurants")
-    @JsonIgnoreProperties("restaurants")
+    @JsonView(View.Admin.class)
     private Set<Account> owners;
+
 
     public String getAddress() {
         return address;
@@ -105,6 +114,13 @@ public class Restaurant extends BaseEntity {
         this.image = image;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 
     public Set<Account> getOwners() {
         return owners;

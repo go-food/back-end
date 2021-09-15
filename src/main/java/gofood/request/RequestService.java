@@ -19,7 +19,7 @@ public class RequestService extends BaseService<Request> {
     public Request updateById(Request updatedRequest, Integer id) {
         Request request = repo.findById(id).get();
         if (updatedRequest.getContent() != null) request.setContent(updatedRequest.getContent());
-        if (updatedRequest.getRequestStatus() != null) request.setRequestStatus(updatedRequest.getRequestStatus());
+        if (updatedRequest.getStatus() != null) request.setStatus(updatedRequest.getStatus());
         return request;
     }
 }
