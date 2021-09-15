@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/request")
+@RequestMapping("/requests")
 public class RequestController extends BaseController<Request> {
     private final RequestService requestService;
 
