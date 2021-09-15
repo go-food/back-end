@@ -63,6 +63,13 @@ public class RestaurantService extends BaseService<Restaurant> {
         return HttpStatus.OK;
     }
 
+    public HttpStatus deleteOwner(Integer restaurantId, Integer ownerId) {
+        Restaurant restaurant = repo.findById(restaurantId).get();
+        Account account = accountRepository.findById(ownerId).get();
+        account.getRestaurants().remove(restaurant);
+        return HttpStatus.OK;
+    }
+
     @Override
     public Restaurant updateById(Restaurant updatedRestaurant, Integer id) {
         Restaurant restaurant = repo.findById(id).get();
