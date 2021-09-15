@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -56,7 +57,10 @@ public class RestaurantService extends BaseService<Restaurant> {
 
     public HttpStatus addOwner(Integer restaurantId, String email) {
         Restaurant restaurant = repo.findById(restaurantId).get();
-        Account account = accountRepository.findByEmail(email).get();
+        System.out.println(email);
+        Optional<Account> accountOptional = accountRepository.findByEmail(email);
+        if (accountOptional.isEmpty()) throw new RuntimeException("Email not found!");
+        Account account = accountOptional.get();
         if (account.getRestaurants().contains(restaurant))
             throw new RuntimeException("Account " + account.getId() + " is already an owner of restaurant!");
         account.getRestaurants().add(restaurant);

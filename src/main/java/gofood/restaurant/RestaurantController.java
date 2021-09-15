@@ -1,6 +1,7 @@
 package gofood.restaurant;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.node.TextNode;
 import gofood.base.BaseController;
 import gofood.menu.Menu;
 import gofood.request.Request;
@@ -60,8 +61,8 @@ public class RestaurantController extends BaseController<Restaurant> {
     }
 
     @PostMapping("/{id}/owners")
-    public HttpStatus addOwner(@PathVariable("id") Integer restaurantId, @RequestBody String email) {
-        return restaurantService.addOwner(restaurantId, email);
+    public HttpStatus addOwner(@PathVariable("id") Integer restaurantId, @RequestBody TextNode email) {
+        return restaurantService.addOwner(restaurantId, email.asText());
     }
 
     @DeleteMapping("/{id}/owners/{ownerId}")
