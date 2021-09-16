@@ -6,6 +6,7 @@ import gofood.base.BaseService;
 import gofood.orderlines.OrderLine;
 import gofood.product.ProductRepository;
 import gofood.restaurant.RestaurantRepository;
+import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +47,12 @@ public class OrderService extends BaseService<Order> {
         // email code
 
         return createdOrder;
+    }
+
+    @Override
+    public Order updateById(Order updatedOrder, Integer id) {
+        Order order = repo.findById(id).get();
+        if (updatedOrder.getStatus() != null) order.setStatus(updatedOrder.getStatus());
+        return order;
     }
 }
