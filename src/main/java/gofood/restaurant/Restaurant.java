@@ -49,7 +49,7 @@ public class Restaurant extends BaseEntity {
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     @JsonView(View.Admin.class)
-    @JsonIgnoreProperties("restaurant")
+    @JsonIgnoreProperties({"restaurant"})
     private List<Order> orders;
 
     @ManyToMany(mappedBy = "restaurants")

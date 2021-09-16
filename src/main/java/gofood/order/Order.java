@@ -53,6 +53,7 @@ public class Order extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false)
     @JsonView(View.General.class)
+    @JsonIgnoreProperties("restaurants")
     private Account customer;
 
     @ManyToOne
