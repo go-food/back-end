@@ -46,7 +46,8 @@ public class AccountController extends BaseController<Account> {
 
     @Override
     @JsonView(View.General.class)
-    public Account updateById(Account account, Integer id) {
+    @PatchMapping("/{id}")
+    public Account updateById(Account account, @PathVariable("id") Integer id) {
         return super.updateById(account, id);
     }
 
