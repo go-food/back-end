@@ -55,10 +55,10 @@ public class RestaurantService extends BaseService<Restaurant> {
         return HttpStatus.OK;
     }
 
-    public HttpStatus addOwner(Integer restaurantId, String email) {
+    public HttpStatus addOwner(Integer restaurantId, AddOwnerDto addOwnerDto) {
         Restaurant restaurant = repo.findById(restaurantId).get();
-        System.out.println(email);
-        Optional<Account> accountOptional = accountRepository.findByEmail(email);
+        if (addOwnerDto.getEmail() == null) throw new RuntimeException("Email not provided!");
+        Optional<Account> accountOptional = accountRepository.findByEmail(addOwnerDto.getEmail());
         if (accountOptional.isEmpty()) throw new RuntimeException("Email not found!");
         Account account = accountOptional.get();
         if (account.getRestaurants().contains(restaurant))
