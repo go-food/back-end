@@ -48,7 +48,7 @@ public class AccountService extends BaseService<Account> {
     public Account updateById(Account updatedAccount, Integer id) {
         Account account = repo.findById(id).get();
         // If email is changed
-        if (!account.getEmail().equals(updatedAccount.getEmail())) {
+        if (updatedAccount.getEmail() != null && !account.getEmail().equals(updatedAccount.getEmail())) {
             boolean emailExists = accountRepository.findByEmail(updatedAccount.getEmail()).isPresent();
             if (emailExists) throw new RuntimeException("Email already exists!");
             if (updatedAccount.getEmail() != null) account.setEmail(updatedAccount.getEmail());
