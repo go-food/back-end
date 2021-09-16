@@ -44,6 +44,12 @@ public class AccountController extends BaseController<Account> {
         return service.getById(id);
     }
 
+    @Override
+    @JsonView(View.General.class)
+    public Account updateById(Account account, Integer id) {
+        return super.updateById(account, id);
+    }
+
     @GetMapping("/me/orders")
     @JsonView(View.General.class)
     public List<Order> getCurrentUserOrders(HttpServletRequest request) {
