@@ -54,6 +54,7 @@ public class Restaurant extends BaseEntity {
 
     @ManyToMany(mappedBy = "restaurants")
     @JsonView(View.Admin.class)
+    @JsonIgnoreProperties("restaurants")
     private Set<Account> owners;
 
 
