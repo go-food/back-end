@@ -23,6 +23,7 @@ public class Product extends BaseEntity {
     private Double price;
 
     @Column
+    @JsonView(View.General.class)
     private String description;
 
     @Column
