@@ -27,7 +27,10 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedMethods("GET", "POST", "PATCH", "PUT", "DELETE")
                 .allowedHeaders("*")
-                .allowedOrigins("http://localhost:3000", "https://master.d1wamvde1w6fj0.amplifyapp.com/")
+                .allowedOrigins("http://localhost:3000",
+                        "http://go-food-2021.s3-website-ap-southeast-1.amazonaws.com/",
+                        "http://d33p4yk4k7s7px.cloudfront.net"
+                        )
                 .allowCredentials(true)
         ;
     }
