@@ -13,7 +13,7 @@ import java.util.Objects;
 @Service
 public class FileService {
     private final AmazonS3 amazonS3Client;
-    private static final String BUCKET_NAME = "gofoodbucket";
+    private static final String BUCKET_NAME = "go-food-2021";
 
     @Autowired
     public FileService(AmazonS3 amazonS3Client) {
