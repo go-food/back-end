@@ -29,8 +29,9 @@ public class MvcConfig implements WebMvcConfigurer {
                 .allowedHeaders("*")
                 .allowedOrigins("http://localhost:3000",
                         "http://go-food-2021.s3-website-ap-southeast-1.amazonaws.com/",
-                        "http://d33p4yk4k7s7px.cloudfront.net"
-                        )
+                        "http://d33p4yk4k7s7px.cloudfront.net",
+                        "https://d33p4yk4k7s7px.cloudfront.net"
+                )
                 .allowCredentials(true)
         ;
     }
