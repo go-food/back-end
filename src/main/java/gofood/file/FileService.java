@@ -26,15 +26,16 @@ public class FileService {
         metadata.setContentLength(file.getSize());
 
         String key = generateFileName(file);
-        key = folder + key;
+        key = "temp/" + folder + key;
 
         try {
             amazonS3Client.putObject(BUCKET_NAME, key, file.getInputStream(), metadata);
         } catch (IOException e) {
             return null;
         }
-        return amazonS3Client.getUrl(BUCKET_NAME, key).toString();
-
+        String url = amazonS3Client.getUrl(BUCKET_NAME, key).toString();
+        url = url.replaceFirst("temp", "resized");
+        return url;
     }
 
     private String generateFileName(MultipartFile multiPart) {
