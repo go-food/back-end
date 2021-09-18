@@ -26,6 +26,7 @@ public class Product extends BaseEntity {
     private String description;
 
     @Column
+    @JsonView(View.General.class)
     private String image;
 
     @ManyToOne
