@@ -19,6 +19,7 @@ public class JwtUtil {
 
     public static String COOKIE_NAME = "token";
     private static String SECRET_KEY = "devoncloud";
+    private static final String AUTHORIZATION_HEADER = "Authorization";
 
     public static String extractId(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -49,7 +50,7 @@ public class JwtUtil {
     private static String createToken(Map<String, Object> claims, String subject) {
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 100))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
 
@@ -76,9 +77,15 @@ public class JwtUtil {
     }
 
     public static Integer getRequestUserId(HttpServletRequest request) {
-        Cookie cookie = WebUtils.getCookie(request, COOKIE_NAME);
-        if (cookie == null) throw new HttpUnauthorizedException();
-        String idString = extractId(cookie.getValue());
+//        Cookie cookie = WebUtils.getCookie(request, COOKIE_NAME);
+//        if (cookie == null) throw new HttpUnauthorizedException();
+//        String idString = extractId(cookie.getValue());
+//        if (idString == null) throw new HttpUnauthorizedException();
+        String authorizationHeader = request.getHeader(AUTHORIZATION_HEADER);
+        String[] parts = authorizationHeader.split(" ");
+        if (parts.length < 2) throw new HttpUnauthorizedException();
+        String token = parts[1];
+        String idString = extractId(token);
         if (idString == null) throw new HttpUnauthorizedException();
         return Integer.valueOf(idString);
     }
