@@ -33,6 +33,7 @@ public class Restaurant extends BaseEntity {
     private String closeTime;
 
     @Column(name = "description")
+    @JsonView(View.General.class)
     private String description;
 
     @Column
